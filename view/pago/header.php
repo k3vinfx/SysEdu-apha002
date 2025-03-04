@@ -103,11 +103,7 @@ if ($row_empresa > 0) {
 						<i class="fa fa-bars"></i>
 					</button>
 					<div class="input-group">
-						<h6>Sistema de Red Neuronal Recurrentes de Alternativas Turisticas  / Usuario :  <?php echo $_SESSION['session_email']?></h6>
 			
-		
-			
-						<p class="ml-auto"><strong>La Paz,  </strong><?php echo fechaPeru(); ?></p>
 					</div>
 
 						<!-- Topbar Navbar -->
