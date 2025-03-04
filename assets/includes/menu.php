@@ -34,7 +34,7 @@
 
 
 	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" href="index.php?c=pago" aria-expanded="true" aria-controls="collapseUtilities">
+		<a class="nav-link collapsed" href="index.php?c=pago" data-toggle="collapse"  aria-expanded="true" aria-controls="collapseUtilities">
 			<i class="fas fa-hospital"></i>
 			<span>Tareas</span>
 		</a>
