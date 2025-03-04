@@ -5,7 +5,7 @@
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-6">
-		<h1 class="h3 mb-0 text-gray-800">Pagos</h1>
+		<h1 class="h3 mb-0 text-gray-800">Libros</h1>
 
 	</div>
     
@@ -30,7 +30,7 @@
           
 
             <td>
-                <a href="?c=pago&a=Crud_Aux&Pago_id=<?php echo $r->Pago_id; ?> &Pago_Meses=<?php echo $r->Pago_Meses; ?> &Pago_Cliente_Id=<?php echo $r->Pago_Cliente_Id; ?> "class="btn btn-primary"><i class='fas fa-edit'></i>Ver Lecciones</a>         
+                <a href="?c=pago&a=Crud_Aux&Pago_id=<?php echo $r->Pago_id; ?> &Pago_Meses=<?php echo $r->Pago_Meses; ?> &Pago_Cliente_Id=<?php echo $r->Pago_Cliente_Id; ?> "class="btn btn-primary"><i class='fas fa-edit'></i> Ver Lecciones</a>         
             </td>
 
         
