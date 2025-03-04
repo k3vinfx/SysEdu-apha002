@@ -81,6 +81,8 @@ $(document).ready(function () {
  
         $('#table_paginate').hide();
         $('#table_filter').hide();
+        $('#table_info').hide();
+      
         $('#table_length').hide();
     }, 100); // Ajusta el tiempo si es necesario
 })
