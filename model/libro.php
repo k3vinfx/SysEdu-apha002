@@ -23,7 +23,7 @@ class libro
 		try
 		{
 			$result = array();
-			$stm = $this->pdo->prepare("SELECT * FROM `pagos_servicio` ORDER BY `Pago_id` ASC");
+			$stm = $this->pdo->prepare("SELECT * FROM `libro` ORDER BY `Titulo` ASC");
 			$stm->execute();
 			return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e)
