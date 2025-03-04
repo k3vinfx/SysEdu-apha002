@@ -26,7 +26,7 @@
                 <tbody>
 
     <?php foreach($this->model->MenuLista() as $r): ?>
-            <td><?php echo $r->TITULO ; ?></td>
+            <td><?php echo $r->Titulo ; ?></td>
           
 
             <td>
