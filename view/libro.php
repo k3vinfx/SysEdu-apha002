@@ -1,12 +1,25 @@
 
-<script>
-
-$(document).ready(function () {
-    $('#table_length').hide();
-})
-</script>
 
 
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.container-fluid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.modal-content {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -30,7 +43,7 @@ $(document).ready(function () {
                             <td><?php echo $r->Titulo; ?></td>
                             <td>
                               
-                                <button class="btn btn-primary d-flex align-items-center justify-content-center ver-lecciones" data-toggle="modal" data-target="#leccionesModal">
+                                <button class="btn btn-primary d-flex align-items-center justify-content-center" data-toggle="modal" data-target="#leccionesModal">
                                     <i class='fas fa-book mr-2'></i> Ver Lecciones
                                 </button>
                             </td>
