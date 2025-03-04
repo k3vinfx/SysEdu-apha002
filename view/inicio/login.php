@@ -160,7 +160,7 @@ button{
      
 
         <form id="frm-login" action="?c=login&a=Login" method="post" enctype="multipart/form-data">
-        <h3>Veterinaria LU</h3>
+        <h3>Bienvenido</h3>
      <?php echo isset($alert) ? $alert : ""; ?>
     
          
