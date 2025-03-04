@@ -6,7 +6,10 @@
     flex-direction: column;
 }
 .container-fluid {
-    flex: 1;
+  flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 </style>
@@ -25,23 +28,6 @@
 <!-- End of Page Wrapper -->
 
 
-<!-- Bootstrap core JavaScript-->
-<script src="assets/vendor/jquery/jquery.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="assets/js/sb-admin-2.min.js"></script>
-
-
-<script src="assets/js/jquery.dataTables.min.js"></script>
-<script src="assets/js/dataTables.bootstrap4.min.js"></script>
-<script src="assets/js/sweetalert2@10.js"></script>
-<script type="text/javascript" src="assets/js/producto.js"></script>
-
-<script type="text/javascript">
 
 </script>
 
