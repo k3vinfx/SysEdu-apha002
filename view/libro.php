@@ -129,7 +129,7 @@ $(document).ready(function () {
     let idLibro = $(this).data("id");
 
     $.ajax({
-        url: "?c=unidad&a=ListaUnidades",
+        url: "?c=libro&a=ListaUnidades",
         method: "POST",
         data: { idLibro: idLibro },
         success: function (data) {
