@@ -1,3 +1,12 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+$(document).ready(function () {
+    $('#table_length').hide();
+})
+</script>
+
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -34,7 +43,7 @@
 </div>
 <!-- /.container-fluid -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 <style>
     table {
