@@ -107,7 +107,7 @@ if ($row_empresa > 0) {
 			
 		
 			
-						<p class="ml-auto"><strong>La Paz,  </strong><?php echo fechaPeru(); ?></p>
+					
 					</div>
 
 						<!-- Topbar Navbar -->
