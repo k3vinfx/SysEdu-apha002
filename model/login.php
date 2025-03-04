@@ -23,7 +23,7 @@ private $pdo;
 	{
         try
         {
-            $stm = $this->pdo->prepare("SELECT * FROM usuario WHERE User_Email = ? AND User_Pass = ?");
+            $stm = $this->pdo->prepare("SELECT * FROM usuario WHERE correo = ? AND clave = ?");
             $stm->execute(array($CorreoElectronico,$Contrasena));
             $usuario = $stm->fetch(PDO::FETCH_OBJ);
 
