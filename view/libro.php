@@ -1,13 +1,13 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-sm-flex align-items-center justify-content-center mb-4">
         <h1 class="h3 mb-0 text-gray-800 text-center">Libros</h1>
     </div>
 
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow-x: auto;">
                 <table class="table table-striped table-bordered text-center" id="table">
                     <thead class="thead-dark">
                         <tr>
@@ -67,5 +67,4 @@
 
 <script>
 
-    
 </script>
