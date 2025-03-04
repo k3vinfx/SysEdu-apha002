@@ -27,7 +27,6 @@
 			<span>Libros</span>
 		</a>
 
-
 	</li>
 
 	
@@ -35,7 +34,7 @@
 
 
 	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClientesx" aria-expanded="true" aria-controls="collapseUtilities">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" href="index.php?c=pago" aria-expanded="true" aria-controls="collapseUtilities">
 			<i class="fas fa-hospital"></i>
 			<span>Tareas</span>
 		</a>
