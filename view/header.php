@@ -44,19 +44,7 @@ if ($row_empresa > 0) {
 
 <!-- Custom scripts for all pages-->
 
-<style>
-  html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-.container-fluid {
-  flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}</style>
+
 <head>
 
 	<meta charset="utf-8">
