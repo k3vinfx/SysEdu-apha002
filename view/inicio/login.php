@@ -21,204 +21,165 @@ $alert = '';
   
   
   <style media="screen">
-
-/* Importing fonts from Google */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
-/* Reseting background: #ecf0f3;*/
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'Poppins', sans-serif;
+      *,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #080710;
+}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -30px;
+    bottom: -80px;
+}
+form{
+    height: 380px;
+    width: 380px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
 }
 
-html, body{
-
-margin:0px;
-padding: 0px;
-background: #ecf0f3;
-
-background-image: url("sistema/img/bg.jpg");
-width: 100%;
-height:100%;
-
-
-position: relative;
-
-background-position: center center;
-
-background-size:cover;
-background-attachment: fixed;
-
-background-repeat: no-repeat;
-background-size: contain;
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
 }
-
-.wrapper {
-  position: absolute;
-  max-width: 350px;
-  min-height: 500px;
-  margin: auto; /* Centrado horizontal y verticalmente */
-  top: 10%; /* Si quieres que esté pegado en la parte superior */
-  bottom: 20%; /* Si quieres que esté pegado en la parte inferior */
-  left: 0; /* Si quieres que esté pegado en la parte izquierda */
-  right: 0; /* Si quieres que esté pegado en la parte derecha */
-  padding: 40px 30px 30px 30px;
-  background-color: #ecf0f3;
-  border-radius: 15px;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
-
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
 }
-
-.logo {
-width: 80px;
-margin: auto;
+::placeholder{
+    color: #e5e5e5;
 }
-
-.logo img {
-width: 100%;
-height: 80px;
-object-fit: cover;
-border-radius: 50%;
-box-shadow: 0px 0px 3px #5f5f5f,
-0px 0px 0px 5px #ecf0f3,
-8px 8px 15px #a7aaa7,
--8px -8px 15px #fff;
+button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
 }
-
-.wrapper .name {
-font-weight: 600;
-font-size: 1.4rem;
-letter-spacing: 1.3px;
-padding-left: 10px;
-color: #555;
+.social{
+  margin-top: 30px;
+  display: flex;
 }
-
-.wrapper .form-field input {
-width: 100%;
-display: block;
-border: none;
-outline: none;
-background: none;
-font-size: 1.2rem;
-color: #666;
-padding: 10px 15px 10px 10px;
-/* border: 1px solid red; */
+.social div{
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
 }
-
-.wrapper .form-field {
-padding-left: 10px;
-margin-bottom: 20px;
-border-radius: 20px;
-box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+.social div:hover{
+  background-color: rgba(255,255,255,0.47);
 }
-
-.wrapper .form-field .fas {
-color: #555;
+.social .fb{
+  margin-left: 25px;
 }
-
-.wrapper .btn {
-box-shadow: none;
-width: 100%;
-height: 40px;
-background-color: #03A9F4;
-color: #fff;
-border-radius: 25px;
-box-shadow: 3px 3px 3px #b1b1b1,
--3px -3px 3px #fff;
-letter-spacing: 1.3px;
+.social i{
+  margin-right: 4px;
 }
-
-.wrapper .btn:hover {
-background-color: #039BE5;
-}
-
-.wrapper a {
-text-decoration: none;
-font-size: 0.8rem;
-color: #03A9F4;
-}
-
-.wrapper a:hover {
-color: #039BE5;
-}
-
-@media(max-width: 380px) {
-.wrapper {
-margin: 30px 20px;
-padding: 40px 15px 15px 15px;
-}
-}
-
-
-
-canvas{
-  display:block;
-  vertical-align:bottom;
-}
-
-
-
-#particles-js{
-  width: 100%;
-  height: 100%;
-  background-color: #183e95;
-  background-image: url('');
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-}
-
-
+  
+  
 </style>
-  
-  
-  
-
 </head>
 
 <!--    <canvas data-processing-sources="infinite-arboretum.js"></canvas> -->
 <body>
 
       
-
+<div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
  
-      
+     
 
-
-        <div class="wrapper">
-        <div class="logo">
-        <img src="assets/img/etreva_travel.jpg"  >
-          </div>
-        <div class="text-center mt-4 name">
-           SISTEMA RED NEURONA RECURENTE ...
-        </div>
-</BR>
         <form id="frm-login" action="?c=login&a=Login" method="post" enctype="multipart/form-data">
+        <h3>Veterinaria LU</h3>
      <?php echo isset($alert) ? $alert : ""; ?>
     
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
+         
+               
                 <input type="text" class="form-control" placeholder="CorreoElectronico" name="CorreoElectronico" value="<?php echo $login->CorreoElectronico; ?>">
-        </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
+
+
                 <input type="password" class="form-control" placeholder="clave" name="Contrasena" value="<?php echo $login->Contrasena; ?>">
-               </div>
+       
                <button type="submit" >Iniciar</button>
-    
-        <div class="text-center fs-6">
-            <a href="#">Forget password?</a> or <a type="submit">Sign up</a>
-        </div>
+
+     
     </div>
 
     </form>
-<div id="particles-js"></div>
 
-</div>
-<script src="particles.js"></script>
-<script src="app.js"></script>
+    </body>
+</html>
+
 
 
     <script>
@@ -230,25 +191,7 @@ canvas{
     })
 
     /* ---- particles.js config ---- */
-
-    
-  var count_particles, stats, update;
-  stats = new Stats;
-  stats.setMode(0);
-  stats.domElement.style.position = 'absolute';
-  stats.domElement.style.left = '0px';
-  stats.domElement.style.top = '0px';
-  document.body.appendChild(stats.domElement);
-  count_particles = document.querySelector('.js-count-particles');
-  update = function() {
-    stats.begin();
-    stats.end();
-    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
-      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
-    }
-    requestAnimationFrame(update);
-  };
-  requestAnimationFrame(update);
+   
 </script>
 
 
