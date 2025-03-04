@@ -78,6 +78,9 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     setTimeout(function () {
+ 
+        $('#table_paginate').hide();
+        $('#table_filter').hide();
         $('#table_length').hide();
     }, 100); // Ajusta el tiempo si es necesario
 })
