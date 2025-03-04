@@ -17,7 +17,7 @@
 					<thead class="thead-dark">
 
                     <tr>
-                        <th >Código </th>
+          
                         <th >Libro</th>    
                         <th >Acciones </th>
                 
@@ -26,44 +26,11 @@
                 <tbody>
 
     <?php foreach($this->model->MenuLista() as $r): ?>
-        <tr>
-            <td><?php echo $r->Pago_id; ?></td>
-            <td><?php echo $r->Pago_Cliente_Id; ?></td>
-            <td><?php if ($r->Pago_Meses == 1) {
-                echo "1 MES";
-            } if ($r->Pago_Meses == 2) {
-                echo "3 MES";
-            }if ($r->Pago_Meses == 3) {
-                echo "6 MES";
-            }?>
-        
-        
-            </td>
+            <td><?php echo $r->TITULO ; ?></td>
+          
 
-            <td><?php 
-            if ($r->Pago_Incio !== null) {
-                echo $r->Pago_Incio;}else{
-                     echo "Falta Aprovación";
-                };
-            
-            ?></td>
-            <td><?php  if ($r->Pago_Fin !== null) {
-                echo $r->Pago_Fin;}else{
-                     echo "Falta Aprovación";
-                }; ?></td>
             <td>
-                <a href="<?php echo $r->Pago_comprobante; ?>" class="popup-link">
-                    <img src="<?php echo $r->Pago_comprobante; ?>" width="200"/>
-                </a>
-            </td>
-   
-          <td><?php if ($r->estado == 1) {
-                echo "Cancelado";
-            } else {
-                echo "Falta Aprovación";
-            }?></td>
-            <td>
-                <a href="?c=pago&a=Crud_Aux&Pago_id=<?php echo $r->Pago_id; ?> &Pago_Meses=<?php echo $r->Pago_Meses; ?> &Pago_Cliente_Id=<?php echo $r->Pago_Cliente_Id; ?> "class="btn btn-primary"><i class='fas fa-edit'></i>Aprobar</a>         
+                <a href="?c=pago&a=Crud_Aux&Pago_id=<?php echo $r->Pago_id; ?> &Pago_Meses=<?php echo $r->Pago_Meses; ?> &Pago_Cliente_Id=<?php echo $r->Pago_Cliente_Id; ?> "class="btn btn-primary"><i class='fas fa-edit'></i>Ver Lecciones</a>         
             </td>
 
         
