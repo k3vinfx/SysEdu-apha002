@@ -30,8 +30,7 @@ private $pdo;
            if ($usuario) {
             // Verifica el tipo de usuario y almacénalo en la sesión
             $_SESSION["logged_in"] = true;
-            $_SESSION["session_type"] = $usuario->Usuario_Tipo;
-            $_SESSION["session_email"] = $usuario->User_Email;
+              $_SESSION["session_email"] = $usuario->correo;
       
             // Llama a la función ObtenerSecion() para realizar cualquier otra acción deseada
            // $this->ObtenerSecion($CorreoElectronico);
