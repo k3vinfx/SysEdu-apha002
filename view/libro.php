@@ -43,7 +43,11 @@
                             <td><?php echo $r->Titulo; ?></td>
                             <td>
                               
-                                <button class="btn btn-primary d-flex align-items-center justify-content-center" data-toggle="modal" data-target="#leccionesModal">
+                          
+                                <button class="btn btn-primary d-flex align-items-center justify-content-center ver-lecciones" 
+                                        data-id="<?php echo $r->idLibro; ?>" 
+                                        data-toggle="modal" 
+                                        data-target="#leccionesModal">
                                     <i class='fas fa-book mr-2'></i> Ver Lecciones
                                 </button>
                             </td>
@@ -120,5 +124,20 @@ $(document).ready(function () {
       
         $('#table_length').hide();
     }, 100); // Ajusta el tiempo si es necesario
-})
+
+
+    let idLibro = $(this).data("id");
+
+    $.ajax({
+        url: "?c=unidad&a=ListaUnidades",
+        method: "POST",
+        data: { idLibro: idLibro },
+        success: function (data) {
+            $("#leccionesModal .modal-body").html(data);
+        }
+    });
+
+});
+
+
 </script>

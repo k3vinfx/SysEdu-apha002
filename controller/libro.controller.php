@@ -39,4 +39,14 @@ class LibroController{
         require_once 'view/Registro/nuevo_usuario.php';
           
     }
+
+    public function ListaUnidades()
+    {
+        $idLibro = $_POST['idLibro'];
+        $unidades = $this->model->ListaUnidades($idLibro);
+
+        foreach ($unidades as $unidad) {
+            echo "<p>{$unidad->nombreUnidad}</p>";
+        }
+    }
 }

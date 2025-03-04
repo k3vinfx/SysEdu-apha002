@@ -32,6 +32,17 @@ class libro
 		}
 	}
 	
+	public function ListaUnidades($fkLibro)
+{
+    try {
+        $stm = $this->pdo->prepare("SELECT * FROM unidad WHERE fkLibro = ?");
+        $stm->execute([$fkLibro]);
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
+}
+
 	public function ActualizarClienteEstado($id)
 	{ 
 	 // var_dump($id);die;
