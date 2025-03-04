@@ -67,4 +67,7 @@
 
 <script>
 
+$(document).ready(function () {
+    $('#table_length').hide();
+})
 </script>
