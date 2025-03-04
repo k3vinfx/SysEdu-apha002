@@ -1,6 +1,6 @@
 <?php
 
-class pago
+class libro
 {
 
 	private $pdo;

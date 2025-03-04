@@ -18,13 +18,7 @@
 
                     <tr>
                         <th >Código </th>
-                        <th >Id Usuario</th>
-                        <th >Plan</th>
-                        <th >Inicio_Servicio</th>
-                        <th >Fin_Servicio</th>
-                        <th >Comprobante</th>
-              
-                        <th >Estado</th>
+                        <th >Libro</th>    
                         <th >Acciones </th>
                 
                     </tr>
