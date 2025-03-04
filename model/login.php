@@ -23,15 +23,16 @@ private $pdo;
 	{
         try
         {
-            $stm = $this->pdo->prepare("SELECT * FROM usuario WHERE correo = ? AND clave = ?");
+            $stm = $this->pdo->prepare("SELECT * FROM usuario WHERE User_Email = ? AND User_Pass = ?");
             $stm->execute(array($CorreoElectronico,$Contrasena));
             $usuario = $stm->fetch(PDO::FETCH_OBJ);
 
            if ($usuario) {
             // Verifica el tipo de usuario y almacénalo en la sesión
             $_SESSION["logged_in"] = true;
-            $_SESSION["idUsuario"] = $usuario->idUsuario;
-          
+            $_SESSION["session_type"] = $usuario->Usuario_Tipo;
+            $_SESSION["session_email"] = $usuario->User_Email;
+      
             // Llama a la función ObtenerSecion() para realizar cualquier otra acción deseada
            // $this->ObtenerSecion($CorreoElectronico);
 
