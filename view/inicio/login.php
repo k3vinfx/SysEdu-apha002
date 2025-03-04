@@ -66,6 +66,7 @@ $alert = '';
     }
 
     form {
+        font-family: 'Poppins',sans-serif;
         width: 90%;
         max-width: 400px;
         background-color: rgba(255, 255, 255, 0.13);
