@@ -29,9 +29,10 @@ $(document).ready(function () {
                         <tr>
                             <td><?php echo $r->Titulo; ?></td>
                             <td>
-                                <a href="?c=pago&a=Crud_Aux&Pago_id=<?php echo $r->Pago_id; ?>&Pago_Meses=<?php echo $r->Pago_Meses; ?>&Pago_Cliente_Id=<?php echo $r->Pago_Cliente_Id; ?>" class="btn btn-primary d-flex align-items-center justify-content-center">
+                              
+                                <button class="btn btn-primary d-flex align-items-center justify-content-center ver-lecciones" data-toggle="modal" data-target="#leccionesModal">
                                     <i class='fas fa-book mr-2'></i> Ver Lecciones
-                                </a>
+                                </button>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -41,6 +42,27 @@ $(document).ready(function () {
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="leccionesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Lecciones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Aquí irán las lecciones...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- /.container-fluid -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
