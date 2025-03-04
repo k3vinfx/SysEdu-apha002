@@ -1,9 +1,9 @@
 <?php
 
     $host = "localhost";
-    $user = "root";
-    $clave = "";
-    $bd = "sis_venta";
+    $user = "u838621046_edu_bruno";
+    $clave = "dellFX009@";
+    $bd = "u838621046_edu_bruno";
 
     $conexion = mysqli_connect($host,$user,$clave,$bd);
     if (mysqli_connect_errno()){
