@@ -26,6 +26,11 @@
 			<i class="fas fa-fw fa-cog"></i>
 			<span>Libros</span>
 		</a>
+		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+			  	<a class="collapse-item" href="index.php?c=pago">Listado de Libros</a>
+			</div>
+		</div>
 
 	</li>
 
@@ -34,11 +39,15 @@
 
 
 	<li class="nav-item">
-		<a class="nav-link collapsed" href="index.php?c=pago" data-toggle="collapse"  aria-expanded="true" aria-controls="collapseUtilities">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClientesx" aria-expanded="true" aria-controls="collapseUtilities">
 			<i class="fas fa-hospital"></i>
 			<span>Tareas</span>
 		</a>
-		
+		<div id="collapseClientesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+			<a class="collapse-item" href="?c=clientes&a=Index">Listado de Clientes</a>
+			</div>		
+		</div>
 	</li>
 
 	<?php //if ($_SESSION['rol'] == 1) { ?>
