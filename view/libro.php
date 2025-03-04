@@ -1,4 +1,4 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
 
 $(document).ready(function () {
@@ -43,7 +43,7 @@ $(document).ready(function () {
 </div>
 <!-- /.container-fluid -->
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
     table {
@@ -77,6 +77,8 @@ $(document).ready(function () {
 <script>
 
 $(document).ready(function () {
-    $('#table_length').hide();
+    setTimeout(function () {
+        $('#table_length').hide();
+    }, 100); // Ajusta el tiempo si es necesario
 })
 </script>
