@@ -1,26 +1,36 @@
-
-
-
-
 <style>
-  html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-.container-fluid {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.modal-content {
-    max-height: 80vh;
-    overflow-y: auto;
-}
+    html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .container-fluid {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .modal-content {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    #pdfControls {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .control-btn {
+        font-size: 1.2rem;
+        padding: 8px 12px;
+    }
 </style>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -64,7 +74,8 @@
     </div>
 </div>
 
-<!-- Modal --><div class="modal fade" id="leccionesModal" tabindex="-1" role="dialog">
+<!-- Modal -->
+<div class="modal fade" id="leccionesModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,10 +85,23 @@
                 </button>
             </div>
             <div class="modal-body text-center">
-                <div>
-                    <button id="prevPage" class="btn btn-secondary">⬅️ Anterior</button>
+                <div id="pdfControls">
+                    <button id="prevPage" class="btn btn-secondary control-btn">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button id="zoomOut" class="btn btn-secondary control-btn">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
                     <span>Página: <span id="pageNum">1</span> / <span id="pageCount"></span></span>
-                    <button id="nextPage" class="btn btn-secondary">Siguiente ➡️</button>
+                    <button id="zoomIn" class="btn btn-secondary control-btn">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button id="nextPage" class="btn btn-secondary control-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <a id="downloadPdf" class="btn btn-primary control-btn" download>
+                        <i class="fas fa-download"></i>
+                    </a>
                 </div>
                 <canvas id="pdfCanvas" style="width: 100%; border: 1px solid #ccc;"></canvas>
             </div>
@@ -135,9 +159,10 @@ $(document).ready(function () {
 
     let pdfDoc = null,
         pageNum = 1,
-        pageRendering = false,
+        scale = 1.5,  // Escala inicial
         pdfCanvas = document.getElementById("pdfCanvas"),
-        ctx = pdfCanvas.getContext("2d");
+        ctx = pdfCanvas.getContext("2d"),
+        pdfUrl = "";  // Para almacenar la URL del PDF
 
     function renderPage(num) {
         pageRendering = true;
@@ -171,6 +196,9 @@ $(document).ready(function () {
             data: { idLibro: idLibro },
             success: function (response) {
                 if (response.ruta) {
+                    pdfUrl = response.ruta;
+                    $("#downloadPdf").attr("href", pdfUrl);  // Asignar URL al botón de descarga
+
                     pdfjsLib.getDocument(response.ruta).promise.then(function (pdf) {
                         pdfDoc = pdf;
                         pageNum = 1;
@@ -199,16 +227,20 @@ $(document).ready(function () {
             renderPage(pageNum);
         }
     });
+
+    $("#zoomIn").on("click", function () {
+        scale += 0.2;
+        renderPage(pageNum);
+    });
+
+    $("#zoomOut").on("click", function () {
+        if (scale > 0.5) {
+            scale -= 0.2;
+            renderPage(pageNum);
+        }
+    });
+
 });
-
-
-
-
-
-
-    //let idLibro = $(this).data("id");
-
-
 
 
 </script>
