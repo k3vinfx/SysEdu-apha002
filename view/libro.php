@@ -52,19 +52,15 @@
                     <tbody>
                         <?php foreach($this->model->MenuLista() as $r): ?>
                         <tr>
-               
                             <td><?php echo $r->Titulo; ?></td>
                             <td>
-                              
-                          
-                                <button class="btn btn-primary d-flex align-items-center justify-content-center ver-lecciones" 
-                                        data-idx="<?php echo $r->idLibro; ?>" 
-                                        data-toggle="modal" 
-                                        data-target="#leccionesModal">
-                                    <i class='fas fa-book mr-2'></i> Ver Lecciones
+                                <button class="btn btn-primary ver-lecciones" 
+                                        data-idx="<?php echo $r->idLibro; ?>"
+                                        data-toggle="modal"
+                                        data-target="#listaPdfModal">
+                                    <i class='fas fa-book'></i> Ver Lecciones
                                 </button>
                             </td>
-
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
