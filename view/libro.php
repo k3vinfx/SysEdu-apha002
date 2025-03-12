@@ -219,52 +219,61 @@ $(document).ready(function () {
 
 
     $(document).on("click", ".seleccionar-pdf", function () {
-        console.log("PDF seleccionado:", pdfUrl); // Verificar en consola que el PDF se obtiene correctamente
+        let pdfUrl = $(this).data("url"); // Obtener la URL del PDF
 
-        // Cerrar el modal de la lista de PDFs
-        $("#listaPdfsModal").modal("hide");
+            console.log("PDF seleccionado:", pdfUrl); // Verificar en la consola
 
-        // Esperar 500ms para asegurarse de que el primer modal se cierra antes de abrir el otro
-        setTimeout(function () {
-            // Mostrar el modal del visor de PDF
-            $("#leccionesModal").modal("show");
+            if (!pdfUrl) {
+                console.error("No se encontró la URL del PDF.");
+                return;
+            }
 
-            // Cargar el PDF seleccionado
-            loadPdf(pdfUrl);
-        }, 500);
+            // Cerrar el modal de la lista de PDFs
+            $("#listaPdfsModal").modal("hide");
+
+            // Esperar 500ms para asegurarse de que el primer modal se cierra antes de abrir el otro
+            setTimeout(function () {
+                // Mostrar el modal del visor de PDF
+                $("#leccionesModal").modal("show");
+
+                // Cargar el PDF en el visor
+                loadPdf(pdfUrl);
+            }, 500);
     });
 
     // Función para cargar el PDF
     function loadPdf(url) {
-        pdfjsLib.getDocument(url).promise.then(function (pdf) {
-            pdfDoc = pdf;
-            pageNum = 1;
-            renderPage(pageNum);
-        }).catch(function (error) {
-            console.error("Error al cargar el PDF:", error);
-            $("#pdfCanvas").html("<p>Error al cargar el archivo PDF.</p>");
-        });
+        console.log("Cargando PDF:", url); // Verificar en la consola
+
+    pdfjsLib.getDocument(url).promise.then(function (pdf) {
+        pdfDoc = pdf;
+        pageNum = 1;
+        renderPage(pageNum);
+    }).catch(function (error) {
+        console.error("Error al cargar el PDF:", error);
+        $("#pdfCanvas").html("<p>Error al cargar el archivo PDF.</p>");
+    });
     }
-    
-        // Función para renderizar una página del PDF
-        function renderPage(num) {
-            pdfDoc.getPage(num).then(function (page) {
-                let viewport = page.getViewport({ scale: 1.5 });
-                pdfCanvas.height = viewport.height;
-                pdfCanvas.width = viewport.width;
 
-                let renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport,
-                };
+    // Función para renderizar una página del PDF
+    function renderPage(num) {
+    pdfDoc.getPage(num).then(function (page) {
+        let viewport = page.getViewport({ scale: 1.5 });
+        pdfCanvas.height = viewport.height;
+        pdfCanvas.width = viewport.width;
 
-                let renderTask = page.render(renderContext);
-                renderTask.promise.then(function () {
-                    $("#pageNum").text(num);
-                    $("#pageCount").text(pdfDoc.numPages);
-                });
-            });
-        }
+        let renderContext = {
+            canvasContext: ctx,
+            viewport: viewport,
+        };
+
+        let renderTask = page.render(renderContext);
+        renderTask.promise.then(function () {
+            $("#pageNum").text(num);
+            $("#pageCount").text(pdfDoc.numPages);
+        });
+    });
+    }
 
     $("#prevPage").on("click", function () {
         if (pageNum > 1) {
