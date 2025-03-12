@@ -168,23 +168,11 @@ $(document).ready(function () {
     $('#table_length').hide();
     }, 100); // Ajusta el tiempo si es necesario
     
+
     let pdfDoc = null,
         pageNum = 1,
-        scale = 1.5,
         pdfCanvas = document.getElementById("pdfCanvas"),
-        ctx = pdfCanvas.getContext("2d"),
-        pdfUrl = "";
-
-    function renderPage(num) {
-        pdfDoc.getPage(num).then(function (page) {
-            let viewport = page.getViewport({ scale: scale });
-            pdfCanvas.height = viewport.height;
-            pdfCanvas.width = viewport.width;
-            page.render({ canvasContext: ctx, viewport: viewport });
-            $("#pageNum").text(num);
-            $("#pageCount").text(pdfDoc.numPages);
-        });
-    }
+        ctx = pdfCanvas.getContext("2d");
 
     $(".ver-lecciones").on("click", function () {
         let idLibro = $(this).data("idx");
@@ -194,35 +182,44 @@ $(document).ready(function () {
             dataType: "json",
             data: { idLibro: idLibro },
             success: function (response) {
-                if (response.length > 0) {
-                    let listaHtml = "<ul class='list-group'>";
-                    response.forEach(pdf => {
-                        listaHtml += `<li class='list-group-item'><button class='btn btn-link seleccionar-pdf' data-url='${pdf.ruta}'>${pdf.nombre}</button></li>`;
-                    });
-                    listaHtml += "</ul>";
-                    $("#listaPdfsContainer").html(listaHtml);
-                    $("#listaPdfsModal").modal("show");
-                } else {
-                    $("#listaPdfsContainer").html("<p>No se encontraron lecciones.</p>");
-                }
-            },
-            error: function () {
-                $("#listaPdfsContainer").html("<p>Error al cargar las lecciones.</p>");
-            },
+                let lista = "";
+                response.forEach(pdf => {
+                    lista += `<li class='list-group-item'><button class='btn btn-link seleccionar-pdf' data-url='${pdf.ruta}'>${pdf.nombre}</button></li>`;
+                });
+                $("#listaPdfs").html(lista);
+            }
         });
     });
 
     $(document).on("click", ".seleccionar-pdf", function () {
-        pdfUrl = $(this).data("url");
-        $("#downloadPdf").attr("href", pdfUrl);
+        let pdfUrl = $(this).data("url");
+        $("#listaPdfModal").modal("hide");
+        $("#visorPdfModal").modal("show");
         pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
             pdfDoc = pdf;
             pageNum = 1;
             renderPage(pageNum);
-            $("#listaPdfsModal").modal("hide");
-            $("#visorPdfModal").modal("show");
         });
     });
+
+    function renderPage(num) {
+        pdfDoc.getPage(num).then(function (page) {
+            let viewport = page.getViewport({ scale: 1.5 });
+            pdfCanvas.height = viewport.height;
+            pdfCanvas.width = viewport.width;
+
+            let renderContext = {
+                canvasContext: ctx,
+                viewport: viewport,
+            };
+
+            let renderTask = page.render(renderContext);
+            renderTask.promise.then(function () {
+                $("#pageNum").text(num);
+                $("#pageCount").text(pdfDoc.numPages);
+            });
+        });
+    }
 
     $("#prevPage").on("click", function () {
         if (pageNum > 1) {
@@ -234,18 +231,6 @@ $(document).ready(function () {
     $("#nextPage").on("click", function () {
         if (pdfDoc && pageNum < pdfDoc.numPages) {
             pageNum++;
-            renderPage(pageNum);
-        }
-    });
-
-    $("#zoomIn").on("click", function () {
-        scale += 0.2;
-        renderPage(pageNum);
-    });
-
-    $("#zoomOut").on("click", function () {
-        if (scale > 0.5) {
-            scale -= 0.2;
             renderPage(pageNum);
         }
     });
