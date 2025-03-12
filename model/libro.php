@@ -35,20 +35,26 @@ class libro
 	public function ListaUnidades()
 	{
 		try {
+			if (!isset($_POST['idLibro'])) {
+				echo json_encode(["error" => "Falta el parámetro idLibro."]);
+				return;
+			}
+
 			$idLibro = $_POST['idLibro'];
-			$stm = $this->pdo->prepare("SELECT direccion FROM unidad WHERE fkLibro = ?");
+			$stm = $this->pdo->prepare("SELECT direccion AS ruta, nombre FROM unidad WHERE fkLibro = ?");
 			$stm->execute([$idLibro]);
-			$resultado = $stm->fetch(PDO::FETCH_OBJ);
-	
-			if ($resultado && !empty($resultado->direccion)) {
-				echo json_encode(["ruta" => $resultado->direccion]);
+			$resultado = $stm->fetchAll(PDO::FETCH_OBJ);
+
+			if (!empty($resultado)) {
+				echo json_encode($resultado);
 			} else {
-				echo json_encode(["error" => "No se encontró el archivo PDF."]);
+				echo json_encode([]);
 			}
 		} catch (Exception $e) {
 			echo json_encode(["error" => "Error en la consulta."]);
 		}
 	}
+
 	
 	public function ActualizarClienteEstado($id)
 	{ 

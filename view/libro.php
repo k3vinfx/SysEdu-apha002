@@ -174,33 +174,37 @@ $(document).ready(function () {
         pdfCanvas = document.getElementById("pdfCanvas"),
         ctx = pdfCanvas.getContext("2d");
 
-    $(".ver-lecciones").on("click", function () {
-        let idLibro = $(this).data("idx");
-        $.ajax({
+        $(".ver-lecciones").on("click", function () {
+    let idLibro = $(this).data("idx");
+
+    $.ajax({
             url: "?c=libro&a=ListaUnidades",
             method: "POST",
             dataType: "json",
             data: { idLibro: idLibro },
             success: function (response) {
                 console.log("Respuesta del servidor:", response);
-                if (!Array.isArray(response)) {
-                    console.error("Error: La respuesta no es un array", response);
-                    $("#listaPdfs").html("<p>Error al cargar las lecciones.</p>");
-                    return;
-                }
-                
-                let lista = "";
-                response.forEach(pdf => {
-                    lista += `<li class='list-group-item'>
-                                <button class='btn btn-link seleccionar-pdf' data-url='${pdf.ruta}'>${pdf.nombre}</button>
-                            </li>`;
-                });
+    
+            if (!Array.isArray(response)) {
+                console.error("Error: La respuesta no es un array", response);
+                $("#listaPdfsContainer").html("<p>Error al cargar las lecciones.</p>");
+                return;
+            }
 
-                $("#listaPdfs").html(lista);
+            let lista = "<ul class='list-group'>";
+            response.forEach(pdf => {
+                lista += `<li class='list-group-item'>
+                            <button class='btn btn-link seleccionar-pdf' data-url='${pdf.ruta}'>${pdf.nombre}</button>
+                        </li>`;
+            });
+            lista += "</ul>";
+
+            $("#listaPdfsContainer").html(lista);
+            $("#listaPdfsModal").modal("show");
             },
             error: function (xhr, status, error) {
                 console.error("Error en AJAX:", status, error);
-                $("#listaPdfs").html("<p>Error en la carga de lecciones.</p>");
+                $("#listaPdfsContainer").html("<p>Error en la carga de lecciones.</p>");
             }
         });
     });
