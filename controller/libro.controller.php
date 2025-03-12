@@ -42,11 +42,7 @@ class LibroController{
 
     public function ListaUnidades()
     {
-        $idLibro = $_POST['idLibro'];
-        $unidades = $this->model->ListaUnidades($idLibro);
-
-        foreach ($unidades as $unidad) {
-            echo "<p>{$unidad->nombreUnidad}</p>";
-        }
+        $this->model->ListaUnidades(); // El modelo ya obtiene $_POST['idLibro']
     }
+    
 }

@@ -177,14 +177,22 @@ $(document).ready(function () {
         $(".ver-lecciones").on("click", function () {
     let idLibro = $(this).data("idx");
 
+    console.log("ID del libro seleccionado:", idLibro); // Verificar si el ID llega correctamente
+
     $.ajax({
-            url: "?c=libro&a=ListaUnidades",
-            method: "POST",
-            dataType: "json",
-            data: { idLibro: idLibro },
-            success: function (response) {
-                console.log("Respuesta del servidor:", response);
-    
+        url: "?c=libro&a=ListaUnidades",
+        method: "POST",
+        dataType: "json",
+        data: { idLibro: idLibro },
+        success: function (response) {
+            console.log("Respuesta del servidor:", response);
+
+            if (response.error) {
+                console.error("Error recibido:", response.error);
+                $("#listaPdfsContainer").html(`<p>${response.error}</p>`);
+                return;
+            }
+
             if (!Array.isArray(response)) {
                 console.error("Error: La respuesta no es un array", response);
                 $("#listaPdfsContainer").html("<p>Error al cargar las lecciones.</p>");
@@ -201,13 +209,14 @@ $(document).ready(function () {
 
             $("#listaPdfsContainer").html(lista);
             $("#listaPdfsModal").modal("show");
-            },
-            error: function (xhr, status, error) {
-                console.error("Error en AJAX:", status, error);
-                $("#listaPdfsContainer").html("<p>Error en la carga de lecciones.</p>");
-            }
-        });
+        },
+        error: function (xhr, status, error) {
+            console.error("Error en AJAX:", xhr.responseText);
+            $("#listaPdfsContainer").html("<p>Error en la carga de lecciones.</p>");
+        }
     });
+});
+
 
     $(document).on("click", ".seleccionar-pdf", function () {
         let pdfUrl = $(this).data("url");
