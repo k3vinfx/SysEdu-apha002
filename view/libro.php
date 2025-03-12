@@ -41,6 +41,7 @@
                         <?php foreach($this->model->MenuLista() as $r): ?>
                         <tr>
                             <td><?php echo $r->Titulo; ?></td>
+                            <td><?php echo $r->Titulo; ?></td>
                             <td>
                               
                           
@@ -132,7 +133,7 @@ $(document).ready(function () {
     $(".ver-lecciones").on("click", function () {
         let idLibro = $(this).data("idLibro"); // Obtener el ID del libro desde el botón
 
-        alert("id.",idLibro);
+        alert("id.",Titulo);
 
         $.ajax({
             url: "?c=libro&a=ListaUnidades",
