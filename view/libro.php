@@ -219,34 +219,52 @@ $(document).ready(function () {
 
 
     $(document).on("click", ".seleccionar-pdf", function () {
-        let pdfUrl = $(this).data("url");
+        console.log("PDF seleccionado:", pdfUrl); // Verificar en consola que el PDF se obtiene correctamente
+
+        // Cerrar el modal de la lista de PDFs
         $("#listaPdfsModal").modal("hide");
-        $("#visorPdfModal").modal("show");
-        pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+
+        // Esperar 500ms para asegurarse de que el primer modal se cierra antes de abrir el otro
+        setTimeout(function () {
+            // Mostrar el modal del visor de PDF
+            $("#leccionesModal").modal("show");
+
+            // Cargar el PDF seleccionado
+            loadPdf(pdfUrl);
+        }, 500);
+    });
+
+    // Función para cargar el PDF
+    function loadPdf(url) {
+        pdfjsLib.getDocument(url).promise.then(function (pdf) {
             pdfDoc = pdf;
             pageNum = 1;
             renderPage(pageNum);
-        });
-    });
-
-    function renderPage(num) {
-        pdfDoc.getPage(num).then(function (page) {
-            let viewport = page.getViewport({ scale: 1.5 });
-            pdfCanvas.height = viewport.height;
-            pdfCanvas.width = viewport.width;
-
-            let renderContext = {
-                canvasContext: ctx,
-                viewport: viewport,
-            };
-
-            let renderTask = page.render(renderContext);
-            renderTask.promise.then(function () {
-                $("#pageNum").text(num);
-                $("#pageCount").text(pdfDoc.numPages);
-            });
+        }).catch(function (error) {
+            console.error("Error al cargar el PDF:", error);
+            $("#pdfCanvas").html("<p>Error al cargar el archivo PDF.</p>");
         });
     }
+    
+        // Función para renderizar una página del PDF
+        function renderPage(num) {
+            pdfDoc.getPage(num).then(function (page) {
+                let viewport = page.getViewport({ scale: 1.5 });
+                pdfCanvas.height = viewport.height;
+                pdfCanvas.width = viewport.width;
+
+                let renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport,
+                };
+
+                let renderTask = page.render(renderContext);
+                renderTask.promise.then(function () {
+                    $("#pageNum").text(num);
+                    $("#pageCount").text(pdfDoc.numPages);
+                });
+            });
+        }
 
     $("#prevPage").on("click", function () {
         if (pageNum > 1) {
