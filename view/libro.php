@@ -133,6 +133,8 @@ $(document).ready(function () {
         method: "POST",
         data: { idLibro: idLibro },
         success: function (data) {
+
+            alert("INFORMACION:",data);
             $("#leccionesModal .modal-body").html(data);
         }
     });
