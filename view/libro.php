@@ -122,89 +122,93 @@
 <script>
 
 $(document).ready(function () {
+    
+    setTimeout(function () {
+    
+    $('#table_paginate').hide();
+    $('#table_filter').hide();
+    $('#table_info').hide();
+
+    $('#table_length').hide();
+    }, 100); // Ajusta el tiempo si es necesario
+
 
     let pdfDoc = null,
-    pageNum = 1,
-    pageRendering = false,
-    pdfCanvas = document.getElementById('pdfCanvas'),
-    ctx = pdfCanvas.getContext('2d');
+        pageNum = 1,
+        pageRendering = false,
+        pdfCanvas = document.getElementById("pdfCanvas"),
+        ctx = pdfCanvas.getContext("2d");
 
-function renderPage(num) {
-    pageRendering = true;
-    pdfDoc.getPage(num).then(function (page) {
-        let viewport = page.getViewport({ scale: 1.5 });
-        pdfCanvas.height = viewport.height;
-        pdfCanvas.width = viewport.width;
+    function renderPage(num) {
+        pageRendering = true;
+        pdfDoc.getPage(num).then(function (page) {
+            let viewport = page.getViewport({ scale: 1.5 });
+            pdfCanvas.height = viewport.height;
+            pdfCanvas.width = viewport.width;
 
-        let renderContext = {
-            canvasContext: ctx,
-            viewport: viewport,
-        };
+            let renderContext = {
+                canvasContext: ctx,
+                viewport: viewport,
+            };
 
-        let renderTask = page.render(renderContext);
-        renderTask.promise.then(function () {
-            pageRendering = false;
-            document.getElementById("pageNum").textContent = num;
+            let renderTask = page.render(renderContext);
+            renderTask.promise.then(function () {
+                pageRendering = false;
+                document.getElementById("pageNum").textContent = num;
+            });
+        });
+
+        document.getElementById("pageCount").textContent = pdfDoc.numPages;
+    }
+
+    $(".ver-lecciones").on("click", function () {
+        let idLibro = $(this).data("idx");
+
+        $.ajax({
+            url: "?c=libro&a=ListaUnidades",
+            method: "POST",
+            dataType: "json", // Importante para recibir JSON correctamente
+            data: { idLibro: idLibro },
+            success: function (response) {
+                if (response.ruta) {
+                    pdfjsLib.getDocument(response.ruta).promise.then(function (pdf) {
+                        pdfDoc = pdf;
+                        pageNum = 1;
+                        renderPage(pageNum);
+                    });
+                } else {
+                    alert(response.error || "No se pudo cargar el PDF.");
+                }
+            },
+            error: function () {
+                alert("Error al cargar las lecciones.");
+            },
         });
     });
 
-    document.getElementById("pageCount").textContent = pdfDoc.numPages;
-}
+    $("#prevPage").on("click", function () {
+        if (pageNum > 1) {
+            pageNum--;
+            renderPage(pageNum);
+        }
+    });
 
-
-// Botón de página anterior
-document.getElementById("prevPage").addEventListener("click", function () {
-    if (pageNum > 1) {
-        pageNum--;
-        renderPage(pageNum);
-    }
-});
-
-// Botón de página siguiente
-document.getElementById("nextPage").addEventListener("click", function () {
-    if (pageNum < pdfDoc.numPages) {
-        pageNum++;
-        renderPage(pageNum);
-    }
+    $("#nextPage").on("click", function () {
+        if (pdfDoc && pageNum < pdfDoc.numPages) {
+            pageNum++;
+            renderPage(pageNum);
+        }
+    });
 });
 
 
-    setTimeout(function () {
- 
-        $('#table_paginate').hide();
-        $('#table_filter').hide();
-        $('#table_info').hide();
-      
-        $('#table_length').hide();
-    }, 100); // Ajusta el tiempo si es necesario
+
+
 
 
     //let idLibro = $(this).data("id");
 
 
-    $(".ver-lecciones").on("click", function () {
-        let idLibro = $(this).data("idx"); // Obtener el ID del libro desde el botón
-
-
-
-        $.ajax({
-            url: "?c=libro&a=ListaUnidades",
-            method: "POST",
-            data: { idLibro: idLibro },
-            success: function (data) {
-                // Insertar la respuesta en el modal
-            
-                $("#leccionesModal .modal-body").html(`
-                    <iframe src="${data}" width="100%" height="500px"></iframe>
-                `);
-            },
-            error: function () {
-                alert("Error al cargar las lecciones.");
-            }
-        });
-    });
-
-});
 
 
 </script>
