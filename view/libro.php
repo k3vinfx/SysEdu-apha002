@@ -241,52 +241,84 @@ $(document).ready(function () {
             }, 500);
     });
 
+    let scale = 1.5; // Factor de zoom inicial
     // Función para cargar el PDF
+
     function loadPdf(url) {
-        console.log("Cargando PDF:", url); // Verificar en la consola
+    console.log("Cargando PDF:", url);
 
     pdfjsLib.getDocument(url).promise.then(function (pdf) {
         pdfDoc = pdf;
         pageNum = 1;
         renderPage(pageNum);
+
+        // Asignar la URL del PDF al botón de descarga
+        $("#downloadPdf").attr("href", url);
     }).catch(function (error) {
         console.error("Error al cargar el PDF:", error);
         $("#pdfCanvas").html("<p>Error al cargar el archivo PDF.</p>");
     });
-    }
+}
 
-    // Función para renderizar una página del PDF
+    // Función para renderizar la página del PDF
     function renderPage(num) {
-    pdfDoc.getPage(num).then(function (page) {
-        let viewport = page.getViewport({ scale: 1.5 });
-        pdfCanvas.height = viewport.height;
-        pdfCanvas.width = viewport.width;
+        pdfDoc.getPage(num).then(function (page) {
+            let viewport = page.getViewport({ scale: scale }); // Aplicar zoom
+            pdfCanvas.height = viewport.height;
+            pdfCanvas.width = viewport.width;
 
-        let renderContext = {
-            canvasContext: ctx,
-            viewport: viewport,
-        };
+            let renderContext = {
+                canvasContext: ctx,
+                viewport: viewport,
+            };
 
-        let renderTask = page.render(renderContext);
-        renderTask.promise.then(function () {
-            $("#pageNum").text(num);
-            $("#pageCount").text(pdfDoc.numPages);
+            let renderTask = page.render(renderContext);
+            renderTask.promise.then(function () {
+                $("#pageNum").text(num);
+                $("#pageCount").text(pdfDoc.numPages);
+            });
         });
-    });
     }
 
-    $("#prevPage").on("click", function () {
-        if (pageNum > 1) {
-            pageNum--;
-            renderPage(pageNum);
-        }
-    });
 
-    $("#nextPage").on("click", function () {
-        if (pdfDoc && pageNum < pdfDoc.numPages) {
-            pageNum++;
+
+        // Botón Anterior Página
+        $("#prevPage").on("click", function () {
+            if (pageNum > 1) {
+                pageNum--;
+                renderPage(pageNum);
+            }
+        });
+
+        // Botón Siguiente Página
+        $("#nextPage").on("click", function () {
+            if (pdfDoc && pageNum < pdfDoc.numPages) {
+                pageNum++;
+                renderPage(pageNum);
+            }
+        });
+
+        // Botón Zoom In (+)
+        $("#zoomIn").on("click", function () {
+            scale += 0.2; // Aumentar escala
             renderPage(pageNum);
-        }
-    });
+        });
+
+        // Botón Zoom Out (-)
+        $("#zoomOut").on("click", function () {
+            if (scale > 0.5) { // Evitar que el zoom sea muy pequeño
+                scale -= 0.2;
+                renderPage(pageNum);
+            }
+        });
+
+        // Botón de Descarga
+        $("#downloadPdf").on("click", function (e) {
+            let pdfUrl = $(this).attr("href");
+            if (!pdfUrl) {
+                e.preventDefault(); // Evita que se descargue un archivo vacío
+                alert("No hay archivo disponible para descargar.");
+            }
+        });
 });
 </script>
