@@ -20,6 +20,8 @@
     overflow-y: auto;
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -62,8 +64,7 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="leccionesModal" tabindex="-1" role="dialog">
+<!-- Modal --><div class="modal fade" id="leccionesModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -72,15 +73,18 @@
                     <span>&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <!-- Aquí se insertará el iframe del PDF dinámicamente -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <div class="modal-body text-center">
+                <div>
+                    <button id="prevPage" class="btn btn-secondary">⬅️ Anterior</button>
+                    <span>Página: <span id="pageNum">1</span> / <span id="pageCount"></span></span>
+                    <button id="nextPage" class="btn btn-secondary">Siguiente ➡️</button>
+                </div>
+                <canvas id="pdfCanvas" style="width: 100%; border: 1px solid #ccc;"></canvas>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- /.container-fluid -->
 
@@ -118,6 +122,53 @@
 <script>
 
 $(document).ready(function () {
+
+    let pdfDoc = null,
+    pageNum = 1,
+    pageRendering = false,
+    pdfCanvas = document.getElementById('pdfCanvas'),
+    ctx = pdfCanvas.getContext('2d');
+
+function renderPage(num) {
+    pageRendering = true;
+    pdfDoc.getPage(num).then(function (page) {
+        let viewport = page.getViewport({ scale: 1.5 });
+        pdfCanvas.height = viewport.height;
+        pdfCanvas.width = viewport.width;
+
+        let renderContext = {
+            canvasContext: ctx,
+            viewport: viewport,
+        };
+
+        let renderTask = page.render(renderContext);
+        renderTask.promise.then(function () {
+            pageRendering = false;
+            document.getElementById("pageNum").textContent = num;
+        });
+    });
+
+    document.getElementById("pageCount").textContent = pdfDoc.numPages;
+}
+
+
+// Botón de página anterior
+document.getElementById("prevPage").addEventListener("click", function () {
+    if (pageNum > 1) {
+        pageNum--;
+        renderPage(pageNum);
+    }
+});
+
+// Botón de página siguiente
+document.getElementById("nextPage").addEventListener("click", function () {
+    if (pageNum < pdfDoc.numPages) {
+        pageNum++;
+        renderPage(pageNum);
+    }
+});
+
+
     setTimeout(function () {
  
         $('#table_paginate').hide();
