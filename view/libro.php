@@ -133,7 +133,7 @@ $(document).ready(function () {
     $(".ver-lecciones").on("click", function () {
         let idLibro = $(this).data("idx"); // Obtener el ID del libro desde el botón
 
-        alert("id.",Titulo);
+        alert("id.",idLibro);
 
         $.ajax({
             url: "?c=libro&a=ListaUnidades",
