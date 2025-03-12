@@ -74,6 +74,23 @@
     </div>
 </div>
 
+<!-- Modal Lista de PDFs -->
+<div class="modal fade" id="listaPdfsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Seleccionar Lección</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center" id="listaPdfsContainer">
+                <p>Cargando lecciones...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="leccionesModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -144,9 +161,8 @@
 </style>
 
 <script>
-
 $(document).ready(function () {
-    
+
     setTimeout(function () {
     
     $('#table_paginate').hide();
@@ -155,62 +171,60 @@ $(document).ready(function () {
 
     $('#table_length').hide();
     }, 100); // Ajusta el tiempo si es necesario
-
-
+    
     let pdfDoc = null,
         pageNum = 1,
-        scale = 1.5,  // Escala inicial
+        scale = 1.5,
         pdfCanvas = document.getElementById("pdfCanvas"),
         ctx = pdfCanvas.getContext("2d"),
-        pdfUrl = "";  // Para almacenar la URL del PDF
+        pdfUrl = "";
 
     function renderPage(num) {
-        pageRendering = true;
         pdfDoc.getPage(num).then(function (page) {
-            let viewport = page.getViewport({ scale: 1.5 });
+            let viewport = page.getViewport({ scale: scale });
             pdfCanvas.height = viewport.height;
             pdfCanvas.width = viewport.width;
-
-            let renderContext = {
-                canvasContext: ctx,
-                viewport: viewport,
-            };
-
-            let renderTask = page.render(renderContext);
-            renderTask.promise.then(function () {
-                pageRendering = false;
-                document.getElementById("pageNum").textContent = num;
-            });
+            page.render({ canvasContext: ctx, viewport: viewport });
+            $("#pageNum").text(num);
+            $("#pageCount").text(pdfDoc.numPages);
         });
-
-        document.getElementById("pageCount").textContent = pdfDoc.numPages;
     }
 
     $(".ver-lecciones").on("click", function () {
         let idLibro = $(this).data("idx");
-
         $.ajax({
             url: "?c=libro&a=ListaUnidades",
             method: "POST",
-            dataType: "json", // Importante para recibir JSON correctamente
+            dataType: "json",
             data: { idLibro: idLibro },
             success: function (response) {
-                if (response.ruta) {
-                    pdfUrl = response.ruta;
-                    $("#downloadPdf").attr("href", pdfUrl);  // Asignar URL al botón de descarga
-
-                    pdfjsLib.getDocument(response.ruta).promise.then(function (pdf) {
-                        pdfDoc = pdf;
-                        pageNum = 1;
-                        renderPage(pageNum);
+                if (response.length > 0) {
+                    let listaHtml = "<ul class='list-group'>";
+                    response.forEach(pdf => {
+                        listaHtml += `<li class='list-group-item'><button class='btn btn-link seleccionar-pdf' data-url='${pdf.ruta}'>${pdf.nombre}</button></li>`;
                     });
+                    listaHtml += "</ul>";
+                    $("#listaPdfsContainer").html(listaHtml);
+                    $("#listaPdfsModal").modal("show");
                 } else {
-                    alert(response.error || "No se pudo cargar el PDF.");
+                    $("#listaPdfsContainer").html("<p>No se encontraron lecciones.</p>");
                 }
             },
             error: function () {
-                alert("Error al cargar las lecciones.");
+                $("#listaPdfsContainer").html("<p>Error al cargar las lecciones.</p>");
             },
+        });
+    });
+
+    $(document).on("click", ".seleccionar-pdf", function () {
+        pdfUrl = $(this).data("url");
+        $("#downloadPdf").attr("href", pdfUrl);
+        pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+            pdfDoc = pdf;
+            pageNum = 1;
+            renderPage(pageNum);
+            $("#listaPdfsModal").modal("hide");
+            $("#visorPdfModal").modal("show");
         });
     });
 
@@ -239,8 +253,5 @@ $(document).ready(function () {
             renderPage(pageNum);
         }
     });
-
 });
-
-
 </script>
