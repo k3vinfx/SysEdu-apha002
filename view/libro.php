@@ -52,6 +52,7 @@
                                     <i class='fas fa-book mr-2'></i> Ver Lecciones
                                 </button>
                             </td>
+
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -62,17 +63,17 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="leccionesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="leccionesModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Lecciones</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Aquí irán las lecciones...</p>
+                <!-- Aquí se insertará el iframe del PDF dinámicamente -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -141,7 +142,10 @@ $(document).ready(function () {
             data: { idLibro: idLibro },
             success: function (data) {
                 // Insertar la respuesta en el modal
-                $("#leccionesModal .modal-body").html(data);
+            
+                $("#leccionesModal .modal-body").html(`
+                    <iframe src="${data}" width="100%" height="500px"></iframe>
+                `);
             },
             error: function () {
                 alert("Error al cargar las lecciones.");
