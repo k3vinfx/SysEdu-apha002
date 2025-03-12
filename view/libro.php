@@ -40,7 +40,7 @@
                     <tbody>
                         <?php foreach($this->model->MenuLista() as $r): ?>
                         <tr>
-                            <td><?php echo $r->Titulo; ?></td>
+                            <td><?php echo $r->idLibro; ?></td>
                             <td><?php echo $r->Titulo; ?></td>
                             <td>
                               
