@@ -126,11 +126,11 @@ $(document).ready(function () {
     }, 100); // Ajusta el tiempo si es necesario
 
 
-    let idLibro = $(this).data("id");
+    //let idLibro = $(this).data("id");
 
 
     $(".ver-lecciones").on("click", function () {
-        let idLibro = $(this).data("id"); // Obtener el ID del libro desde el botón
+        let idLibro = $(this).data("idLibro"); // Obtener el ID del libro desde el botón
 
         alert("id.",idLibro);
 
