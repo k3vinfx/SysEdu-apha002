@@ -128,15 +128,22 @@ $(document).ready(function () {
 
     let idLibro = $(this).data("id");
 
-    $.ajax({
-        url: "?c=libro&a=ListaUnidades",
-        method: "POST",
-        data: { idLibro: idLibro },
-        success: function (data) {
 
-            alert("INFORMACION:",data);
-            $("#leccionesModal .modal-body").html(data);
-        }
+    $(".ver-lecciones").on("click", function () {
+        let idLibro = $(this).data("id"); // Obtener el ID del libro desde el botón
+
+        $.ajax({
+            url: "?c=libro&a=ListaUnidades",
+            method: "POST",
+            data: { idLibro: idLibro },
+            success: function (data) {
+                // Insertar la respuesta en el modal
+                $("#leccionesModal .modal-body").html(data);
+            },
+            error: function () {
+                alert("Error al cargar las lecciones.");
+            }
+        });
     });
 
 });
