@@ -35,26 +35,56 @@ class libro
 	public function ListaUnidades()
 	{
 		try {
+			// Verificar si se recibe correctamente el ID del libro
 			if (!isset($_POST['idLibro'])) {
 				echo json_encode(["error" => "Falta el parámetro idLibro."]);
 				return;
 			}
-
+	
 			$idLibro = $_POST['idLibro'];
-			$stm = $this->pdo->prepare("SELECT direccion AS ruta, nombre FROM unidad WHERE fkLibro = ?");
-			$stm->execute([$idLibro]);
+	
+			// DEBUG: Mostrar el ID recibido
+			error_log("ID recibido en ListaUnidades: " . $idLibro);
+	
+			// Asegurar que el ID sea numérico para evitar SQL Injection
+			if (!is_numeric($idLibro)) {
+				echo json_encode(["error" => "El ID del libro debe ser numérico."]);
+				return;
+			}
+	
+			// Preparar la consulta SQL
+			$stm = $this->pdo->prepare("SELECT direccion AS ruta, nombreUnidad AS nombre FROM unidad WHERE fkLibro = ?");
+	
+			// DEBUG: Comprobar si la consulta se preparó correctamente
+			if (!$stm) {
+				echo json_encode(["error" => "Error en la preparación de la consulta SQL."]);
+				return;
+			}
+	
+			// Ejecutar la consulta con el parámetro ID del libro
+			if (!$stm->execute([$idLibro])) {
+				// Capturar errores de SQL
+				$errorInfo = $stm->errorInfo();
+				echo json_encode(["error" => "Error en la ejecución de la consulta: " . $errorInfo[2]]);
+				return;
+			}
+	
+			// Obtener los resultados
 			$resultado = $stm->fetchAll(PDO::FETCH_OBJ);
-
+	
+			// DEBUG: Ver qué devuelve la consulta
+			error_log("Resultados obtenidos: " . print_r($resultado, true));
+	
 			if (!empty($resultado)) {
 				echo json_encode($resultado);
 			} else {
-				echo json_encode([]);
+				echo json_encode(["error" => "No hay lecciones disponibles para este libro."]);
 			}
 		} catch (Exception $e) {
-			echo json_encode(["error" => "Error en la consulta."]);
+			echo json_encode(["error" => "Excepción en la consulta: " . $e->getMessage()]);
 		}
 	}
-
+	
 	
 	public function ActualizarClienteEstado($id)
 	{ 
