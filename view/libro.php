@@ -182,11 +182,25 @@ $(document).ready(function () {
             dataType: "json",
             data: { idLibro: idLibro },
             success: function (response) {
+                console.log("Respuesta del servidor:", response);
+                if (!Array.isArray(response)) {
+                    console.error("Error: La respuesta no es un array", response);
+                    $("#listaPdfs").html("<p>Error al cargar las lecciones.</p>");
+                    return;
+                }
+                
                 let lista = "";
                 response.forEach(pdf => {
-                    lista += `<li class='list-group-item'><button class='btn btn-link seleccionar-pdf' data-url='${pdf.ruta}'>${pdf.nombre}</button></li>`;
+                    lista += `<li class='list-group-item'>
+                                <button class='btn btn-link seleccionar-pdf' data-url='${pdf.ruta}'>${pdf.nombre}</button>
+                            </li>`;
                 });
+
                 $("#listaPdfs").html(lista);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error en AJAX:", status, error);
+                $("#listaPdfs").html("<p>Error en la carga de lecciones.</p>");
             }
         });
     });
