@@ -46,7 +46,7 @@
                               
                           
                                 <button class="btn btn-primary d-flex align-items-center justify-content-center ver-lecciones" 
-                                        data-id="<?php echo $r->idLibro; ?>" 
+                                        data-idx="<?php echo $r->idLibro; ?>" 
                                         data-toggle="modal" 
                                         data-target="#leccionesModal">
                                     <i class='fas fa-book mr-2'></i> Ver Lecciones
@@ -131,7 +131,7 @@ $(document).ready(function () {
 
 
     $(".ver-lecciones").on("click", function () {
-        let idLibro = $(this).data("idLibro"); // Obtener el ID del libro desde el botón
+        let idLibro = $(this).data("idx"); // Obtener el ID del libro desde el botón
 
         alert("id.",Titulo);
 
