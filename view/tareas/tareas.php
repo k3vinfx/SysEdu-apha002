@@ -5,7 +5,7 @@
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-6">
-		<h1 class="h3 mb-0 text-gray-800">Clientes</h1>
+		<h1 class="h3 mb-0 text-gray-800">Tareas</h1>
 	
 	</div>
     
@@ -18,13 +18,10 @@
 
                     <tr>
                         <th >Código</th>
-                        <th >Nombres</th>
-                        <th >Apellidos</th>
-                        <th >País</th>
-                        <th >Edad</th>
-                        <th >Celular</th>
-                        <th >Sexo</th>
-                        <th >Email</th>
+                        <th >Nombres Tarea</th>
+                        <th >Asignatura</th>
+                        <th >Fecha Entrega</th>
+                        <th >Entrgado</th>
                         <th >Estado</th>
             
                 
@@ -34,7 +31,7 @@
 
     <?php foreach($this->model->Listado() as $r): ?>
         <tr>
-            <td><?php echo $r->Cliente_Id ; ?></td>
+            <td><?php echo $r->idTarea ; ?></td>
             <td><?php echo $r->Cliente_Nombres; ?></td>
             <td><?php echo $r->Cliente_Apellidos; ?></td>
             <td><?php echo $r->Cliente_Pais; ?></td>

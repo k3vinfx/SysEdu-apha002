@@ -1,6 +1,6 @@
 <?php
 
-class clientes
+class tareas
 {
 
   private $pdo;
@@ -28,7 +28,7 @@ class clientes
     {
       $result = array();
 
-      $stm = $this->pdo->prepare("SELECT * FROM clientes");
+      $stm = $this->pdo->prepare("SELECT * FROM tareas");
       $stm->execute();
 
       return $stm->fetchAll(PDO::FETCH_OBJ);

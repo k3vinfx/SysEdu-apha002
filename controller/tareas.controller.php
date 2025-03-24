@@ -1,18 +1,18 @@
 <?php
 require_once 'model/clientes.php';
 
-class ClientesController{
+class TareasController{
 
     private $model;
 
     public function __CONSTRUCT(){
-        $this->model = new clientes();
+        $this->model = new tareas();
     }
 
     //Llamado plantilla principal
     public function Index(){
        require_once 'view/principal/header.php';
-        require_once 'view/clientes/clientes.php';
+        require_once 'view/tareas/tareas.php';
        require_once 'view/footerx.php';
     }
    
