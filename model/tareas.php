@@ -28,7 +28,7 @@ class tareas
     {
       $result = array();
 
-      $stm = $this->pdo->prepare("SELECT * FROM tareas");
+      $stm = $this->pdo->prepare("SELECT * FROM tarea");
       $stm->execute();
 
       return $stm->fetchAll(PDO::FETCH_OBJ);
