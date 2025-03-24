@@ -1,5 +1,5 @@
 <?php
-require_once 'model/clientes.php';
+require_once 'model/tareas.php';
 
 class TareasController{
 
