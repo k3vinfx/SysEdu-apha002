@@ -17,13 +17,12 @@
 					<thead class="thead-dark">
 
                     <tr>
-                        <th >Código</th>
-                        <th >Nombres Tarea</th>
-                        <th >Unidades</th>
+                        <th >Libro</th>
+                        <th >Unidad</th>
+                        <th >Tarea</th>
                         <th >Fecha Entrega</th>
-                        <th >Entrgado</th>
-                        <th >Estado</th>
-            
+                        <th >Entregado</th>
+                          
                 
                     </tr>
                 </thead>
@@ -31,24 +30,13 @@
 
     <?php foreach($this->model->ListadoTarea() as $r): ?>
         <tr>
-            <td><?php echo $r->idTarea ; ?></td>
-            <td><?php echo $r->Cliente_Nombres; ?></td>
-            <td><?php echo $r->Cliente_Apellidos; ?></td>
-            <td><?php echo $r->Cliente_Pais; ?></td>
-            <td><?php echo $r->Cliente_Edad; ?></td>
-            <td><?php echo $r->Cliente_Celular; ?></td>
-           
-             <td><?php if ($r->Cliente_Sexo == 1) {
-                echo "M";
-            } else {
-                echo "F";
-            }?></td>
-                        <td><?php echo $r->Cliente_Email; ?></td>
-           <td><?php if ($r->Cliente_Estado == 1) {
-                echo "Activo";
-            } else {
-                echo "Inactivo";
-            }?></td>
+            <td><?php echo $r->Libro ; ?></td>
+            <td><?php echo $r->Unidad; ?></td>
+            <td><?php echo $r->Tarea; ?></td>
+            <td><?php echo $r->FechaEntrega; ?></td>
+            <td><?php echo $r->estado_entrega; ?></td>
+                 
+       
        
           
         </tr>
