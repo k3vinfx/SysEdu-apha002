@@ -19,7 +19,7 @@
                     <tr>
                         <th >Código</th>
                         <th >Nombres Tarea</th>
-                        <th >Asignatura</th>
+                        <th >Unidades</th>
                         <th >Fecha Entrega</th>
                         <th >Entrgado</th>
                         <th >Estado</th>
