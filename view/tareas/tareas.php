@@ -35,7 +35,14 @@
             <td><?php echo $r->Tarea; ?></td>
             <td><?php echo $r->FechaEntrega; ?></td>
             <td><?php echo $r->estado_entrega; ?></td>
-                 
+            <td>
+                                <button class="btn btn-primary btn-sm entregar-tarea" 
+                                        data-toggle="modal" 
+                                        data-target="#modalEntregarTarea"
+                                        data-idtarea="<?php echo $r->idTarea; ?>">
+                                    <i class="fas fa-paper-plane"></i> Entregar
+                                </button>
+                            </td> 
        
        
           
