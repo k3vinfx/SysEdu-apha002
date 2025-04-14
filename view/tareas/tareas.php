@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
 
-    <?php foreach($this->model->Listado() as $r): ?>
+    <?php foreach($this->model->ListadoTarea() as $r): ?>
         <tr>
             <td><?php echo $r->idTarea ; ?></td>
             <td><?php echo $r->Cliente_Nombres; ?></td>
